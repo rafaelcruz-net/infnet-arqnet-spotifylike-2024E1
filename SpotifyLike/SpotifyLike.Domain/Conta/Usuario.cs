@@ -11,9 +11,61 @@ namespace SpotifyLike.Domain.Conta
     {
         public Guid Id { get; set; }
         public String Nome { get; set; }
-        public List<Cartao> Cartoes { get; set; }
-        public List<Playlist> Playlists { get; set; }
-        public List<Assinatura> Assinaturas { get; set; }
+        public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
+        public List<Playlist> Playlists { get; set; } = new List<Playlist>(); 
+        public List<Assinatura> Assinaturas { get; set; } = new List<Assinatura>(); 
 
+        public void Criar(string nome, Plano plano, Cartao cartao)
+        {
+            this.Nome = nome;
+
+            //Assinar um plano
+            this.AssinarPlano(plano, cartao);
+
+            //Adiciona o cartão de credito na conta do usuário
+            this.AdicionarCartao(cartao);
+
+            //Criar Playlist Default
+            this.CriarPlaylist();
+        }
+
+        public void CriarPlaylist(string nome = "Favoritas", bool publica = false)
+        {
+            this.Playlists.Add(new Playlist()
+            {
+                Id = Guid.NewGuid(),
+                Nome = nome,
+                Publica = publica,
+                Usuario = this,
+            });
+        }
+
+        private void AdicionarCartao(Cartao cartao)
+        {
+            this.Cartoes.Add(cartao);
+        }
+
+        private void AssinarPlano(Plano plano, Cartao cartao)
+        {
+            //Debitar o valor do plano no cartao
+            cartao.CriarTransacao(plano.Nome, plano.Valor, plano.Descricao);
+
+            //Caso o usuário ja possua uma assinatura ativa, desativa ela
+            if (this.Assinaturas.Count > 0 && this.Assinaturas.Any(x => x.Ativo))
+            {
+                var planoAtivo = this.Assinaturas.FirstOrDefault(x => x.Ativo);
+                planoAtivo.Ativo = false;
+            }
+
+            //Adiciona uma nova assinatura
+            this.Assinaturas.Add(new Assinatura()
+            {
+                Ativo = true,
+                DtAssinatura = DateTime.Now,
+                Plano = plano,
+                Id = Guid.NewGuid()
+            });
+            
+        }
     }
 }
