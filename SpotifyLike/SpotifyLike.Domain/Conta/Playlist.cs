@@ -14,6 +14,7 @@ namespace SpotifyLike.Domain.Conta
         public bool Publica { get; set; }
         public Usuario Usuario { get; set; }
         public List<Musica> Musicas { get; set; }
+        
         public Playlist()
         {
             Musicas = new List<Musica>();
