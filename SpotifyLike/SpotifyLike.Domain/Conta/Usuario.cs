@@ -1,4 +1,5 @@
-﻿using SpotifyLike.Domain.Transacao;
+﻿using SpotifyLike.Domain.Streaming;
+using SpotifyLike.Domain.Transacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,5 +68,16 @@ namespace SpotifyLike.Domain.Conta
             });
             
         }
+
+        public void FavoritarMusica(Musica musica, string playlistNome = "Favoritas")
+        {
+            var playlist = this.Playlists.FirstOrDefault(x => x.Nome == playlistNome);
+
+            if (playlist == null)
+                throw new Exception("Não encontrei a playlist");
+
+            playlist.Musicas.Add(musica);
+        }
+
     }
 }
