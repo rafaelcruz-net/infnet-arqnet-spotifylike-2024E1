@@ -15,8 +15,6 @@ namespace SpotifyLike.Repository
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Plano> Planos { get; set; }
-        public DbSet<Banda> Bandas { get; set; }
-
 
         public SpotifyContext(DbContextOptions<SpotifyContext> options) : base(options)
         {

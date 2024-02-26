@@ -1,4 +1,5 @@
 ﻿using SpotifyLike.Domain.Conta;
+using SpotifyLike.Domain.Streaming;
 using SpotifyLike.Domain.Transacao;
 using SpotifyLike.Repository.Conta;
 using SpotifyLike.Repository.Streaming;
@@ -33,6 +34,7 @@ namespace SpotifyLike.Application.Conta
 
             Usuario usuario = new Usuario();
             usuario.Criar(nome, plano, cartao);
+            
 
             //Salva o usuário na base de dados
             this.usuarioRepository.Save(usuario);
@@ -51,18 +53,40 @@ namespace SpotifyLike.Application.Conta
 
         public void FavoritarMusica(Guid id, Guid idMusica)
         {
-            var usuario = this.usuarioRepository.GetUsuario(id);
+            
 
+            var usuario = this.usuarioRepository.GetUsuario(id);
             if (usuario == null) throw new Exception("Não encontrei o usuario");
 
-            var musica = this.bandaRepository.GetMusica(idMusica);
-
-            if (musica == null) throw new Exception("Não encontrei a musica a ser favoritada");
+            var musica = VerificarMusica(idMusica);
 
             usuario.FavoritarMusica(musica);
 
             this.usuarioRepository.Update(usuario);
 
+        }
+        
+
+        public void DesfavoritarMusica(Guid id, Guid idMusica)
+        {
+            var usuario = this.usuarioRepository.GetUsuario(id);
+            if (usuario == null) throw new Exception("Não encontrei o usuario");
+
+            var musica = VerificarMusica(idMusica);
+
+            usuario.DesfavoritarMusica(musica);
+
+            this.usuarioRepository.Update(usuario);
+        }
+
+        private Musica VerificarMusica(Guid idMusica)
+        {
+
+            var musica = this.bandaRepository.GetMusica(idMusica);
+
+            if (musica == null) throw new Exception("Não encontrei a musica a ser favoritada");
+
+            return musica;
         }
     }
 }

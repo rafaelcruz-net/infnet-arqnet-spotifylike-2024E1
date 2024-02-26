@@ -17,7 +17,7 @@ namespace SpotifyLike.Domain.Transacao
         public Boolean Ativo { get; set; }
         public Decimal Limite { get; set; }
         public String Numero { get; set; }
-        public List<Transacao> Transacoes { get; set; }
+        public List<Transacao> Transacoes { get; set; } = new List<Transacao>();
 
         public void CriarTransacao(string merchant, decimal valor, string descricao)
         {

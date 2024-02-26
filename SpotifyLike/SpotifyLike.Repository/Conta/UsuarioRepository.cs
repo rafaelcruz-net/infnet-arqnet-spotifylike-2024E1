@@ -1,4 +1,5 @@
-﻿using SpotifyLike.Domain.Conta;
+﻿using Microsoft.EntityFrameworkCore;
+using SpotifyLike.Domain.Conta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,36 +10,33 @@ namespace SpotifyLike.Repository.Conta
 {
     public class UsuarioRepository
     {
-        private SpotifyContext spotifyContext;
+        private static List<Usuario> Usuarios { get; set; } = new List<Usuario>();
 
-        public UsuarioRepository(SpotifyContext spotifyContext)
+        public UsuarioRepository()
         {
-            this.spotifyContext = spotifyContext;
+
         }
 
         public void Save(Usuario usuario)
         {
-            this.spotifyContext.Usuarios.Add(usuario);
-            this.spotifyContext.SaveChanges();  
+            usuario.Id = Guid.NewGuid();
+            Usuarios.Add(usuario);
         }
 
         public Usuario GetUsuario(Guid id)
         {
-            return this.spotifyContext.Usuarios
-                                      .Where(x => x.Id == id)
-                                      .FirstOrDefault();
+            return Usuarios.Where(x => x.Id == id).FirstOrDefault();
         }
 
         public void Update(Usuario usuario)
         {
-            this.spotifyContext.Usuarios.Update(usuario);
-            this.spotifyContext.SaveChanges();
+            Usuarios.Remove(usuario);
+            Usuarios.Add(usuario);
         }
 
         public void Remove(Usuario usuario)
         {
-            this.spotifyContext.Usuarios.Remove(usuario);
-            this.spotifyContext.SaveChanges();
+            Usuarios.Remove(usuario);
         }
 
     }

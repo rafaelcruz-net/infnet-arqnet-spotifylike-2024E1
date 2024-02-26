@@ -79,5 +79,19 @@ namespace SpotifyLike.Domain.Conta
             playlist.Musicas.Add(musica);
         }
 
+        public void DesfavoritarMusica(Musica musica, string playlistNome = "Favoritas")
+        {
+            var playlist = this.Playlists.FirstOrDefault(x => x.Nome == playlistNome);
+
+            if (playlist == null)
+                throw new Exception("Não encontrei a playlist");
+
+            var musicaFav = playlist.Musicas.FirstOrDefault(x => x.Id == musica.Id);
+
+            if (musicaFav == null)
+                throw new Exception("Não encontrei a musica");
+
+            playlist.Musicas.Remove(musicaFav);
+        }
     }
 }
