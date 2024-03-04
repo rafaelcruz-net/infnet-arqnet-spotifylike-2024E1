@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
 import java.util.UUID;
 
 @RestController
@@ -23,9 +24,14 @@ public class MusicaController {
 
     @GetMapping("{id}")
     public ResponseEntity<Musica> get(@PathVariable("id")UUID id) {
-        return this.service.getMusica(id).map(x -> {
-            return new ResponseEntity<Musica>(x, HttpStatus.OK);
-        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Random rand = new Random();
+        int n = rand.nextInt(100);
+        if (n % 2 == 0) {
+            return this.service.getMusica(id).map(x -> {
+                return new ResponseEntity<Musica>(x, HttpStatus.OK);
+            }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

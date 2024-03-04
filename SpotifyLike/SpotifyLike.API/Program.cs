@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Polly.Registry;
+using SpotifyLike.API;
 using SpotifyLike.Application.Conta;
 using SpotifyLike.Repository;
 using SpotifyLike.Repository.Conta;
@@ -14,7 +17,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHttpClient();
+
+
+builder.Services.AddHttpClient("musicaApiServer", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:8080");
+}).AddPolicyHandler(RetryPolicyConfiguration.GetRetryPolicy());
+
 
 //Configurando banco de dados
 builder.Services.AddDbContext<SpotifyContext>(c =>
@@ -48,3 +57,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+

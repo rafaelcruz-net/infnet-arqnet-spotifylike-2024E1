@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Controller
@@ -27,9 +28,14 @@ public class BandaController {
 
     @GetMapping("{id}")
     public ResponseEntity<Banda> get(@PathVariable("id") UUID id) {
-        return this.bandaService.getBanda(id).map(x -> {
-            return new ResponseEntity<Banda>(x, HttpStatus.OK);
-        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+
+            return this.bandaService.getBanda(id).map(x -> {
+                return new ResponseEntity<Banda>(x, HttpStatus.OK);
+            }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+
+
     }
 
     @PostMapping
