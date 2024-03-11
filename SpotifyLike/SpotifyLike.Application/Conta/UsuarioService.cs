@@ -39,7 +39,12 @@ namespace SpotifyLike.Application.Conta
             //Salva o usuário na base de dados
             this.usuarioRepository.Save(usuario);
 
-            //retorna a conta
+            var notificacao = new Notificacao();
+            notificacao.IdUsuario = usuario.Id;
+            notificacao.Message = $"Seja bem vindo ao Spotify Like. Debitamos o valor de R$ {plano.Valor.ToString("N2")} no seu cartão";
+
+            AzureServiceBusService notificationService = new AzureServiceBusService();
+            notificationService.SendMessage(notificacao).Wait();
 
             return usuario;
 
