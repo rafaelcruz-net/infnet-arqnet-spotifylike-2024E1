@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace SpotifyLike.Application.Conta
 {
-    public class AzureServiceBusService
+    public class AzureServiceBusService : IAzureServiceBusService
     {
         private string ConnectionString = "Endpoint=sb://spotify-like-infnet-2024.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=u2Cr1Sd7FJBlTTzgKjpYAQOSAxTn4R31U+ASbHebI2M=";
 
         public AzureServiceBusService() { }
 
-        public async Task SendMessage(Notificacao notificacao) 
+        public async Task SendMessage(Notificacao notificacao)
         {
             ServiceBusClient client;
             ServiceBusSender sender;

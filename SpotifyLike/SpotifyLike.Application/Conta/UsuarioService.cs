@@ -14,15 +14,17 @@ namespace SpotifyLike.Application.Conta
 {
     public class UsuarioService
     {
-        private UsuarioRepository usuarioRepository;
-        private PlanoRepository planoRepository;
-        private BandaRepository bandaRepository;
+        private IUsuarioRepository usuarioRepository;
+        private IPlanoRepository planoRepository;
+        private IBandaRepository bandaRepository;
+        private IAzureServiceBusService azureServiceBusService;
 
-        public UsuarioService(UsuarioRepository usuarioRepository, PlanoRepository planoRepository, BandaRepository bandaRepository)
+        public UsuarioService(IUsuarioRepository usuarioRepository, IPlanoRepository planoRepository, IBandaRepository bandaRepository, IAzureServiceBusService azureServiceBusService)
         {
             this.usuarioRepository = usuarioRepository;
             this.planoRepository = planoRepository;
             this.bandaRepository = bandaRepository;
+            this.azureServiceBusService = azureServiceBusService;
         }
 
         public Usuario CriarConta(String nome, Guid planoId, Cartao cartao)
@@ -43,8 +45,7 @@ namespace SpotifyLike.Application.Conta
             notificacao.IdUsuario = usuario.Id;
             notificacao.Message = $"Seja bem vindo ao Spotify Like. Debitamos o valor de R$ {plano.Valor.ToString("N2")} no seu cartão";
 
-            AzureServiceBusService notificationService = new AzureServiceBusService();
-            notificationService.SendMessage(notificacao).Wait();
+            azureServiceBusService.SendMessage(notificacao).Wait();
 
             return usuario;
 
