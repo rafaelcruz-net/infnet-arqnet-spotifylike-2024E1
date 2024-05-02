@@ -24,14 +24,9 @@ public class MusicaController {
 
     @GetMapping("{id}")
     public ResponseEntity<Musica> get(@PathVariable("id")UUID id) {
-        Random rand = new Random();
-        int n = rand.nextInt(100);
-        if (n % 2 == 0) {
             return this.service.getMusica(id).map(x -> {
-                return new ResponseEntity<Musica>(x, HttpStatus.OK);
-            }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Musica>(x, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
