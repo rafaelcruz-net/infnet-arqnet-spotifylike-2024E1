@@ -25,7 +25,7 @@ public class MusicaController {
     @GetMapping("{id}")
     public ResponseEntity<Musica> get(@PathVariable("id")UUID id) {
             return this.service.getMusica(id).map(x -> {
-            return new ResponseEntity<Musica>(x, HttpStatus.OK);
+                return new ResponseEntity<Musica>(x, HttpStatus.OK);
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

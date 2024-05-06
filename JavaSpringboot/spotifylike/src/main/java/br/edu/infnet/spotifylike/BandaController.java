@@ -16,10 +16,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/banda")
 public class BandaController {
-
     @Autowired
     private BandaService bandaService;
-
     @GetMapping
     public ResponseEntity<List<Banda>> getAll() {
         List<Banda> banda = this.bandaService.getTodos();
@@ -28,14 +26,9 @@ public class BandaController {
 
     @GetMapping("{id}")
     public ResponseEntity<Banda> get(@PathVariable("id") UUID id) {
-
-
             return this.bandaService.getBanda(id).map(x -> {
                 return new ResponseEntity<Banda>(x, HttpStatus.OK);
             }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
-
-
     }
 
     @PostMapping
