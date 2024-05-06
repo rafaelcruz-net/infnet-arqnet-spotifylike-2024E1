@@ -20,7 +20,6 @@ public class BandaController {
     private BandaService bandaService;
     @GetMapping
     public ResponseEntity<List<Banda>> getAll() {
-        int x = 10/0;
         List<Banda> banda = this.bandaService.getTodos();
         return new ResponseEntity<>(banda, HttpStatus.OK);
     }
