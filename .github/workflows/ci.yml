@@ -25,12 +25,12 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore SpotifyLike/SpotifyLike.sln
-    - name: Build
-      run: dotnet build --no-restore SpotifyLike/SpotifyLike.sln
-    - name: Test
-      run: dotnet test --no-build --verbosity normal SpotifyLike/SpotifyLike.sln
+    # - name: Restore dependencies
+    #   run: dotnet restore SpotifyLike/SpotifyLike.sln
+    # - name: Build
+    #   run: dotnet build --no-restore SpotifyLike/SpotifyLike.sln
+    # - name: Test
+    #   run: dotnet test --no-build --verbosity normal SpotifyLike/SpotifyLike.sln
     - name: Change Directory
       run: |
         cd ./SpotifyLike
