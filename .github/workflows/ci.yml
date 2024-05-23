@@ -42,5 +42,5 @@ jobs:
       with:
         push: true
         tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/spotifylike-dotnet:${{github.sha}}
-        file: SpotifyLike/Spotify.API/Dockerfile
+        file: SpotifyLike/SpotifyLike.API/Dockerfile
 
