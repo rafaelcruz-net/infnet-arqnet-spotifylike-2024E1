@@ -33,9 +33,10 @@ builder.Services.AddDbContext<SpotifyContext>(c =>
 
 
 //Adicionando injeção de dependencia Repository
-builder.Services.AddScoped<UsuarioRepository>();
-builder.Services.AddScoped<BandaRepository>();
-builder.Services.AddScoped<PlanoRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IBandaRepository, BandaRepository>();
+builder.Services.AddScoped<IPlanoRepository, PlanoRepository>();
+builder.Services.AddScoped<IAzureServiceBusService, AzureServiceBusService>();
 
 //Services
 builder.Services.AddScoped<UsuarioService>();
@@ -44,11 +45,9 @@ builder.Services.AddScoped<UsuarioService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

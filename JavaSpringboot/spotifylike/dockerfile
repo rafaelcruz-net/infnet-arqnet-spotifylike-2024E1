@@ -1,0 +1,4 @@
+FROM openjdk:21-oracle
+COPY target/spotifylike-1.0.0.jar spotifylike-1.0.0.jar
+ENTRYPOINT ["java", "-jar", "./spotifylike-1.0.0.jar"]
+
