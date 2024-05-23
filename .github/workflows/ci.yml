@@ -31,6 +31,10 @@ jobs:
       run: dotnet build --no-restore SpotifyLike/SpotifyLike.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal SpotifyLike/SpotifyLike.sln
+    - name: Change Directory
+      run: |
+        cd ./SpotifyLike
+        ls -a
     - name: Docker Login
       uses: azure/docker-login@v1
       with:
@@ -42,6 +46,6 @@ jobs:
       with:
         push: true
         tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/spotifylike-dotnet:${{github.sha}}
-        file: SpotifyLike/SpotifyLike.API/Dockerfile
+        file: ./SpotifyLike.API/Dockerfile
         context: .
 
