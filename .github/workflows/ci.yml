@@ -77,7 +77,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         push: true
-        tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/spotifylike-dotnet:${{github.sha}}
+        tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/spotifylike-java:${{github.sha}}
         file: JavaSpringboot/spotifylike/dockerfile
         context: ./JavaSpringboot/spotifylike
 
