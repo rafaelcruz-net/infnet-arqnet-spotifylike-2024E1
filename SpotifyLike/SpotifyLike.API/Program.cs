@@ -40,6 +40,10 @@ builder.Services.AddScoped<IAzureServiceBusService, AzureServiceBusService>();
 
 //Services
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+{
+    ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]
+});
 
 
 var app = builder.Build();

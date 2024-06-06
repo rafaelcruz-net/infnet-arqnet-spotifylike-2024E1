@@ -7,9 +7,11 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <UserSecretsId>42e91da6-707f-49f4-bd73-29d67349c6aa</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ApplicationInsightsResourceId>/subscriptions/a35d2ea4-de9e-446f-b228-c535b37749f4/resourceGroups/Infnet/providers/microsoft.insights/components/SpotifyLikeAPI-Infnet</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.2" />
